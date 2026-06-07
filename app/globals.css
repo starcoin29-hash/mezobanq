@@ -1,0 +1,498 @@
+@import "tailwindcss";
+
+/*
+ * MezoBanq Design System — Premium Edition
+ * Ultra-dark theme · Bitcoin-orange accents · Deep glassmorphism
+ */
+
+/* ■ CSS Custom Properties ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ */
+:root {
+  --bitcoin-orange: 247, 147, 26;
+  --mezo-teal: 78, 205, 196;
+  --transition-base: 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Safe-area insets for modern phones (notch/home bar) */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+/* ■ Global Resets ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ */
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+  background-color: #07070A;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ■ Custom Scrollbar ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(247, 147, 26, 0.15);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(247, 147, 26, 0.4);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(247, 147, 26, 0.15) transparent;
+}
+
+/* ■ Selection ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ */
+::selection {
+  background: rgba(247, 147, 26, 0.35);
+  color: #ffffff;
+}
+
+/* ■ Accessibility ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ */
+*:focus-visible {
+  outline: 2px solid rgba(247, 147, 26, 0.7);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ■ Typography Enhancements ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ */
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.03em;
+}
+
+/* ■ Utility Classes ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ */
+
+/* GPU compositing for animated elements */
+.will-animate {
+  will-change: transform, opacity, box-shadow;
+}
+
+/* Premium gradient text — use transform-based shimmer (cheaper than background-position) */
+.gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #f7931a 40%, #f5b942 70%, #ffffff 100%);
+  background-size: 300% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer-text 6s ease infinite;
+  will-change: background-position;
+}
+
+/* Secondary gradient text for accents */
+.gradient-text-teal {
+  background: linear-gradient(135deg, #ffffff 0%, #4ecdc4 40%, #1ea8f8 70%, #ffffff 100%);
+  background-size: 300% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer-text 6s ease infinite;
+  will-change: background-position;
+}
+
+/* Premium Glassmorphism — Level 1 (subtle) */
+.glass {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* Premium Glassmorphism — Level 2 (panel) */
+.glass-panel {
+  background: linear-gradient(
+    145deg,
+    rgba(19, 19, 26, 0.85) 0%,
+    rgba(10, 10, 15, 0.95) 100%
+  );
+  backdrop-filter: blur(24px) saturate(1.3);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Premium Glassmorphism — Level 3 (mobile menu / modals) */
+.glass-deep {
+  background: linear-gradient(
+    180deg,
+    rgba(13, 13, 20, 0.97) 0%,
+    rgba(7, 7, 10, 0.99) 100%
+  );
+  backdrop-filter: blur(40px) saturate(1.5);
+  -webkit-backdrop-filter: blur(40px) saturate(1.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    -20px 0 60px rgba(0, 0, 0, 0.8),
+    inset 1px 0 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Animated gradient border for premium cards */
+.gradient-border {
+  position: relative;
+  border: none;
+}
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(247, 147, 26, 0.6),
+    rgba(247, 147, 26, 0.05),
+    rgba(78, 205, 196, 0.35),
+    rgba(247, 147, 26, 0.05)
+  );
+  background-size: 300% 300%;
+  animation: gradient-rotate 4s linear infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Glow effect on hover */
+.hover-glow {
+  transition: all var(--transition-base);
+}
+.hover-glow:hover {
+  box-shadow:
+    0 0 40px rgba(247, 147, 26, 0.2),
+    0 0 80px rgba(247, 147, 26, 0.05);
+  transform: translateY(-4px);
+  border-color: rgba(247, 147, 26, 0.3);
+}
+
+/* Premium text glow */
+.text-glow {
+  text-shadow: 0 0 20px rgba(247, 147, 26, 0.4);
+}
+.text-glow-sm {
+  text-shadow: 0 0 10px rgba(247, 147, 26, 0.25);
+}
+
+/* Subtle inner shadow for pressed states or active tabs */
+.inner-shadow {
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Premium noise texture overlay */
+.noise-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Mobile safe-area helpers */
+.safe-top { padding-top: var(--safe-top); }
+.safe-bottom { padding-bottom: var(--safe-bottom); }
+.safe-left { padding-left: var(--safe-left); }
+.safe-right { padding-right: var(--safe-right); }
+
+/* ■ Premium Nav Link Hover ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.nav-link-premium {
+  position: relative;
+  transition: color var(--transition-fast);
+}
+.nav-link-premium::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #f7931a, transparent);
+  border-radius: 1px;
+  transition: all var(--transition-base);
+  transform: translateX(-50%);
+}
+.nav-link-premium:hover::after {
+  width: 80%;
+}
+
+/* Mobile nav link animation */
+.mobile-nav-link {
+  position: relative;
+  overflow: hidden;
+}
+.mobile-nav-link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 0 4px 4px 0;
+  background: linear-gradient(180deg, #f7931a, #f5b942);
+  transform: scaleY(0);
+  transition: transform var(--transition-base);
+}
+.mobile-nav-link:hover::before {
+  transform: scaleY(1);
+}
+
+/* ■ Premium Dashboard Utilities ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ */
+
+/* Premium card — glass + gradient border + hover glow combo */
+.card-premium {
+  background: linear-gradient(
+    145deg,
+    rgba(19, 19, 26, 0.85) 0%,
+    rgba(10, 10, 15, 0.95) 100%
+  );
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: all 350ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-premium:hover {
+  border-color: rgba(247, 147, 26, 0.2);
+  box-shadow:
+    0 12px 48px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(247, 147, 26, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transform: translateY(-2px);
+}
+
+/* Page background — grid + ambient glow pattern */
+.page-background {
+  position: relative;
+  min-height: 100%;
+}
+.page-background::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(247,147,26,0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(247,147,26,0.3) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.015;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Active nav link glow indicator */
+.nav-link-active {
+  color: #ffffff !important;
+  background: rgba(247, 147, 26, 0.08);
+}
+.nav-link-active::after {
+  width: 80% !important;
+  background: linear-gradient(90deg, transparent, #f7931a, #f5b942, transparent) !important;
+}
+
+/* ■ Scroll-triggered Animations ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ */
+/* These replace framer-motion on the landing page — zero JS cost */
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: blur(4px);
+}
+
+.animate-on-scroll.in-view {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Staggered delays for children — use data-delay attribute */
+.animate-on-scroll[data-delay="1"] { transition-delay: 0.1s; }
+.animate-on-scroll[data-delay="2"] { transition-delay: 0.2s; }
+.animate-on-scroll[data-delay="3"] { transition-delay: 0.3s; }
+.animate-on-scroll[data-delay="4"] { transition-delay: 0.45s; }
+.animate-on-scroll[data-delay="5"] { transition-delay: 0.6s; }
+
+/* Scale-in variant */
+.animate-scale-in {
+  opacity: 0;
+  transform: scale(0.95) translateY(20px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.animate-scale-in.in-view {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Header slide-down */
+.animate-header-in {
+  animation: headerSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes headerSlideIn {
+  from { transform: translateY(-80px); }
+  to { transform: translateY(0); }
+}
+
+/* Scroll indicator bounce */
+.animate-scroll-indicator {
+  animation: scrollBounce 2.5s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(10px); opacity: 0.8; }
+}
+
+/* Connector line grow */
+.animate-line-grow {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+}
+.animate-line-grow.in-view {
+  transform: scaleX(1);
+}
+
+/* ■ Glow orb performance — forced GPU layers ■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.glow-orb {
+  will-change: transform;
+  transform: translateZ(0);
+  contain: layout style paint;
+}
+
+/* ■ Loading skeleton shimmer ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.03) 25%,
+    rgba(255,255,255,0.06) 50%,
+    rgba(255,255,255,0.03) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease infinite;
+  border-radius: 8px;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ■ Animations ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ */
+
+@keyframes shimmer-text {
+  0% { background-position: 0% center; }
+  50% { background-position: 150% center; }
+  100% { background-position: 300% center; }
+}
+
+@keyframes gradient-rotate {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) translateZ(0); }
+  50% { transform: translateY(-12px) translateZ(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 15px rgba(247, 147, 26, 0.2); }
+  50% { box-shadow: 0 0 35px rgba(247, 147, 26, 0.6); }
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fade-up {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes border-glow {
+  0%, 100% { border-color: rgba(247, 147, 26, 0.15); }
+  50% { border-color: rgba(247, 147, 26, 0.35); }
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Page-enter animation — use: class="animate-in fade-in duration-200" */
+.animate-in {
+  animation-fill-mode: both;
+}
+.animate-in.fade-in {
+  animation-name: fade-in;
+}
+.animate-in.duration-200 {
+  animation-duration: 200ms;
+}
+.animate-in.duration-300 {
+  animation-duration: 300ms;
+}
+
+/* ■ Reduced Motion ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .animate-on-scroll,
+  .animate-scale-in {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+  .gradient-text,
+  .gradient-text-teal {
+    animation: none;
+  }
+}
+
+/* ■ Mobile Responsiveness ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ */
+@media (max-width: 640px) {
+  h1 { font-size: clamp(2rem, 8vw, 3.5rem); }
+  h2 { font-size: clamp(1.75rem, 6vw, 3rem); }
+  .glass, .glass-panel {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
