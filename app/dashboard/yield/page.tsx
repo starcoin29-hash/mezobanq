@@ -69,7 +69,7 @@ export default function YieldPage() {
       await new Promise((r) => setTimeout(r, 1000));
       // Use simulateGiftCard internally — it deducts MUSD and logs a transaction
       // We'll actually log it as a yield_deposit by using the same mechanism
-      demo.simulateGiftCard(amt);
+      demo.simulateGiftCard(amt, "yield_deposite");
       toast.dismiss("yield");
       toast.success(`Deposited ${amt.toLocaleString()} MUSD into vault.`);
       setDepositAmount("");
