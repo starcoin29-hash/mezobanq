@@ -117,7 +117,7 @@ disabled:cursor-not-allowed shadow-bitcoin-sm"
 </motion.div>
 );
 }
-const levelInfo = PASSPORT_LEVELS[effectivePassport.level];
+const levelInfo = PASSPORT_LEVELS[effectivePassport.level as keyof typeof PASSPORT_LEVELS];
 // Has passport -- show details
 return (
 <motion.div
